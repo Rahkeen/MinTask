@@ -1,0 +1,17 @@
+{
+  "name": "MinTask",
+  "version": "0.0.1",
+  "description": "A simple synced task manager.",
+  "main": "server.js",
+  "keywords": [
+    "Node.js",
+    "mongoDb"
+  ],
+  "author": "Rikin Marfatia",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.2"
+  }
+}
