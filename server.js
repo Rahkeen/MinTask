@@ -45,59 +45,59 @@ router.route("/users")
 		})
 	})
 
-router.route("/users/:id")
-	.get(function(req, res) {
-		var response = {};
-		mongoOp.findById(req.params.id, function(err, data) {
-			if(err) {
-				response = {"error" : true, "message" : "Error fetching user"};
-			} else {
-				response = {"error" : false, "message" : data};
-			}
-			res.json(response);
-		})
-	})
-	.put(function(req, res) {
-		var response = {};
-		mongoOp.findById(req.params.id, function(err, data) {
-			if(err) {
-				response = {"error" : true, "message" : "Error fetching user"}
-			} else {
-				if(req.body.user_email !== undefined) {
-					data.user_email = req.body.user_email;
-				}
-				if(req.body.user_password !== undefined) {
-					data.user_password = req.body.user_password;
-				}
+// router.route("/users/:id")
+// 	.get(function(req, res) {
+// 		var response = {};
+// 		mongoOp.findById(req.params.id, function(err, data) {
+// 			if(err) {
+// 				response = {"error" : true, "message" : "Error fetching user"};
+// 			} else {
+// 				response = {"error" : false, "message" : data};
+// 			}
+// 			res.json(response);
+// 		})
+// 	})
+// 	.put(function(req, res) {
+// 		var response = {};
+// 		mongoOp.findById(req.params.id, function(err, data) {
+// 			if(err) {
+// 				response = {"error" : true, "message" : "Error fetching user"}
+// 			} else {
+// 				if(req.body.user_email !== undefined) {
+// 					data.user_email = req.body.user_email;
+// 				}
+// 				if(req.body.user_password !== undefined) {
+// 					data.user_password = req.body.user_password;
+// 				}
 
-				data.save(function(err) {
-					if(err) {
-						response = {"error" : true, "message" : "Error updating user"}
-					} else {
-						response = {"error" : false, "message" : "Data is updated for user " + req.params.id}
-					}
-					res.json(response);
-				})
-			}
-		})
-	})
-	.delete(function(req, res) {
-		var response = {};
-		mongoOp.findById(req.params.id, function(err, data) {
-			if(err) {
-				response = {"error" : true, "message" : "Error fetching user"}
-			} else {
-				mongoOp.remove({_id : req.params.id}, function(err) {
-					if(err) {
-						response = {"error" : true, "message" : "Error deleting user"}
-					} else {
-						response = {"error" : false, "message" : "Deleted user " + req.params.id}
-					}
-					res.json(response);
-				})
-			}	
-		})
-	})
+// 				data.save(function(err) {
+// 					if(err) {
+// 						response = {"error" : true, "message" : "Error updating user"}
+// 					} else {
+// 						response = {"error" : false, "message" : "Data is updated for user " + req.params.id}
+// 					}
+// 					res.json(response);
+// 				})
+// 			}
+// 		})
+// 	})
+// 	.delete(function(req, res) {
+// 		var response = {};
+// 		mongoOp.findById(req.params.id, function(err, data) {
+// 			if(err) {
+// 				response = {"error" : true, "message" : "Error fetching user"}
+// 			} else {
+// 				mongoOp.remove({_id : req.params.id}, function(err) {
+// 					if(err) {
+// 						response = {"error" : true, "message" : "Error deleting user"}
+// 					} else {
+// 						response = {"error" : false, "message" : "Deleted user " + req.params.id}
+// 					}
+// 					res.json(response);
+// 				})
+// 			}	
+// 		})
+// 	})
 
 app.use('/', router);
 
