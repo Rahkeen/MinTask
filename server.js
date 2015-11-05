@@ -1,12 +1,14 @@
+// Config
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var router = express.Router();
+var PORT = 8080;
 
+// Models
 var User = require("./models/user");
 
-var PORT = 3000;
-
+// Logic / Routing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended" : false}));
 
@@ -15,26 +17,14 @@ router.get("/", function(req, res) {
 });
 
 router.route("/users")
-	.get(function(req, res) {
-		var response = {};
-		mongoOp.find({}, function(err, data) {
-			if(err) {
-				response = {"error" : true, "message" : "Error fetching data"}
-			} else {
-				response = {"error" : false, "message" : data}
-			}
-			res.json(response);
-		})
-	})
 	.post(function(req, res) {
-		var db = new mongoOp();
+		var new_user = new User();
 		var response = {};
 
+		db.name = req.body.name;
 		db.user_email = req.body.email;
-		db.user_password = require('crypto')
-						   .createHash('sha1')
-						   .update(req.body.password)
-						   .digest('base64');
+		db.g_token = req.body.token;
+
 		db.save(function(err) {
 
 			if(err) {
@@ -44,6 +34,15 @@ router.route("/users")
 			}
 			res.json(response);
 		})
+	})
+	.get(function(req, res) {
+		response = {
+			name: "TestUser1",
+			email: "test1@email.com",
+			g_token: "sampletoken"
+		}
+
+		res.json(response);
 	})
 
 // router.route("/users/:id")

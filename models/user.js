@@ -1,4 +1,7 @@
 var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/mintask_test')
+
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
